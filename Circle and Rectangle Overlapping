@@ -1,0 +1,18 @@
+//no algo ,,only geometry is used
+
+class Solution {
+public:
+    bool checkOverlap(int r, int xC, int yC, int x1, int y1, int x2, int y2) {
+        int xmid= (x1+x2)/2;
+        int ymid= (y1+y2)/2;
+
+        int diogonal= sqrt((xmid-x2)*(xmid-x2) + (ymid-y2)*(ymid-y2));
+
+        int distcent= sqrt((xmid-xC)*(xmid-xC) + (ymid-yC)*(ymid-yC));
+        if(distcent> diogonal+r) return false;
+        if(xC>= x1-r && xC<= x2+r && yC<= r+y2 && yC>= y1-r) return true;
+
+        return false;
+        
+    }
+};
