@@ -1,0 +1,27 @@
+Josephus problem
+
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        std::set<int> s;
+        for (int i = 1; i <= n; i++) {
+            s.insert(i);
+        }
+        
+        auto it = s.begin();
+        while (s.size() > 1) {
+            // Calculate the new position using modular arithmetic
+            int index = (std::distance(s.begin(), it) + k - 1) % s.size();
+            it = std::next(s.begin(), index); // Move iterator to the element to remove
+            
+            // Erase the current element and update iterator safely
+            it = s.erase(it);
+            
+            // If the iterator reaches the end, wrap it back to the beginning
+            if (it == s.end()) {
+                it = s.begin();
+            }
+        }
+        return *s.begin();
+    }
+};
