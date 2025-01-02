@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> imageSmoother(const vector<vector<int>>& image) {
+        int rows = image.size();
+        int cols = image[0].size();
+        vector<vector<int>> smoothed(rows, vector<int>(cols, 0));
+
+        vector<pair<int, int>> directions = {{0, 0},  {-1, -1}, {-1, 0},
+                                             {-1, 1}, {0, -1},  {0, 1},
+                                             {1, -1}, {1, 0},   {1, 1}};
+
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                int total = 0;
+                int count = 0;
+
+                for (const auto& dir : directions) {
+                    int nr = r + dir.first;
+                    int nc = c + dir.second;
+
+                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                        total += image[nr][nc];
+                        count++;
+                    }
+                }
+
+                smoothed[r][c] = total / count;
+            }
+        }
+
+        return smoothed;
+    }
+};
