@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int maxMult = INT_MIN;
+    int maxProduct(string s) {
+        // unordered_map<int, vector<int>> m;
+        // for (int i = 0; i < s.size(); i++) {
+        //     m[s[i]].push_back(i);
+        // }
+        int n = s.size();
+        helper(s, n, 0, "", "");
+        return maxMult;
+    }
+
+private:
+    bool pldm(string& s) {
+        int left = 0;
+        int right = s.size() - 1;
+
+        while (left < right) {
+            if (s[left] != s[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+    void helper(string& s, int& n, int i, string s1, string s2) {
+
+        if (i == n) {
+            if (pldm(s1) && pldm(s2)) {
+                maxMult = max((int)(s1.size() * s2.size()), maxMult);
+            }
+            return;
+        }
+        helper(s, n, i+1, s1, s2);
+        helper(s, n, i+1, s[i] + s1, s2);
+        helper(s, n, i+1, s1, s[i] + s2);
+        return;
+        
+    }
+};
